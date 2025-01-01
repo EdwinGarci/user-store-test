@@ -20,7 +20,11 @@ export class JwtAdapter {
     }
 
     async validateToken(token: string) {
-        throw new Error('Method not implemented.');
-        return;
+        return new Promise((resolve) => {
+            jwt.verify(token, this.secret, (err, decoded) => {
+                if (err) return resolve(null);
+                resolve(decoded);
+            });
+        })
     }
 }
